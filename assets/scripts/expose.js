@@ -40,7 +40,6 @@ function init() {
     aud.volume = vol.value / 100;
   })
 
-
   const playSound = document.querySelector('button');
   const confetti = new JSConfetti();
 
