@@ -3,7 +3,7 @@
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-  // TODO
+  
   const horn = document.getElementById('horn-select');
   let imgs = document.querySelectorAll("img");
   const aud = document.querySelector("audio");
