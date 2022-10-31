@@ -1,7 +1,7 @@
 // explore.js
-​
+
 window.addEventListener('DOMContentLoaded', init);
-​
+
 function init() {
   const synth = window.speechSynthesis;
   const face = document.querySelector('img');
@@ -11,7 +11,7 @@ function init() {
   }
   },100)
   synth.addEventListener('voiceschanged',() => {  
-​
+
     var allVoices = synth.getVoices();
     var sVoice = document.getElementById('voice-select');
     for(let i = 0; i < allVoices.length;  i++){
@@ -35,11 +35,11 @@ function init() {
         utterThis.voice = allVoices[i];   
        }
       }
-​
+
       synth.speak(utterThis);
       face.setAttribute('src',"assets/images/smiling-open.png");
       });
   });
-​
-​
+
+
 }
