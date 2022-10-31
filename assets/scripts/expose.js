@@ -20,6 +20,14 @@ function init() {
     } else if (horn.value == "party-horn") {
       hornImg.src = "assets/images/party-horn.svg";
       aud.src = "assets/audio/party-horn.mp3";
+
+      const playSound = document.querySelector('button');
+      const confetti = new JSConfetti();
+
+      playSound.addEventListener('click', (event) => {
+        aud.play();
+        confetti.addConfetti();
+  })
     }
   })
 
@@ -40,12 +48,6 @@ function init() {
     aud.volume = vol.value / 100;
   })
 
-  const playSound = document.querySelector('button');
-  const confetti = new JSConfetti();
-
-  playSound.addEventListener('click', (event) => {
-    aud.play();
-    confetti.addConfetti();
-  })
+  
 }
 
