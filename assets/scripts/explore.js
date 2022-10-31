@@ -1,41 +1,45 @@
 // explore.js
-
+​
 window.addEventListener('DOMContentLoaded', init);
-
+​
 function init() {
-  // TODO
   const synth = window.speechSynthesis;
-
-  const voiceSelect = document.querySelector('select');
-  //const rate = document.querySelector('#rate');
-  //const rateValue = document.querySelector('.rate-value');
-
-  let voices = [];
-
-  function populateVoiceList() {
-    voices = synth.getVoices();
-
-    for (let i = 0; i < voices.length ; i++) {
-      const option = document.createElement('option');
-      option.textContent = `${voices[i].name} (${voices[i].lang})`;
-
-      if (voices[i].default) {
-        option.textContent += ' — DEFAULT';
-      }
-
-      option.setAttribute('data-lang', voices[i].lang);
-      option.setAttribute('data-name', voices[i].name);
-      voiceSelect.appendChild(option);
-    }
+  const face = document.querySelector('img');
+  setInterval(function ()  {
+    if(!synth.speaking){
+    face.setAttribute('src',"assets/images/smiling.png");
   }
-
-  populateVoiceList();
-
-  const pressTalk = document.querySelector('button');
-  let text = document.getElementById("text-to-speak").value;
-
-  pressTalk.addEventListener('click', (event) => {
-    let utterance = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(utterance);
-  })
+  },100)
+  synth.addEventListener('voiceschanged',() => {  
+​
+    var allVoices = synth.getVoices();
+    var sVoice = document.getElementById('voice-select');
+    for(let i = 0; i < allVoices.length;  i++){
+    const opVoice = document.createElement('option');
+    opVoice.textContent = allVoices[i].name
+    opVoice.setAttribute('name', sVoice[i].name)
+    sVoice.appendChild(opVoice);  
+    }
+    const pressButton = document.querySelector('button');
+    const selectOption = document.getElementById('voice-select');
+    const getText = document.getElementById('text-to-speak');
+    
+    var selectedVoice = '';
+    var textUtter = '';
+    selectOption.addEventListener('change', (e) => {selectedVoice = e.target.value});
+    getText.addEventListener('change', (e) => {textUtter = e.target.value});
+    pressButton.addEventListener('click', () => {
+      const utterThis = new SpeechSynthesisUtterance(textUtter);
+      for (let i = 0; i < allVoices.length; i++){
+       if (allVoices[i].name === selectedVoice){
+        utterThis.voice = allVoices[i];   
+       }
+      }
+​
+      synth.speak(utterThis);
+      face.setAttribute('src',"assets/images/smiling-open.png");
+      });
+  });
+​
+​
 }
